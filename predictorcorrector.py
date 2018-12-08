@@ -13,11 +13,13 @@ Created on Fri Dec  7 19:46:24 2018
 
 #May be 
 #5-no of itterations and we should calculte the error in this case ?
+from milnes import Milnes 
 
-def PredictorCorrector(Xpoints,Ypoints,equation,technique,x):
+# assume for now we take number of itteration as input
+def PredictorCorrector(Xpoints,Ypoints,equation,x,technique,itterations):
     output=0
     if technique=="Milne's":
-        output=1 # here we should call Milne's function technique
+        output=Milnes(Xpoints,Ypoints,equation,x,itterations) # here we should call Milne's function technique
     elif technique=="AdamsBashforth":
         output=2
     elif technique=="AdamsMoulton":
@@ -27,3 +29,11 @@ def PredictorCorrector(Xpoints,Ypoints,equation,technique,x):
     return output
 
         
+
+
+xs=[-3,-2,-1,0]
+ys=[-4.547302,-2.30616,-0.3929953,2]
+x=1
+itt=2
+out=PredictorCorrector(xs,ys,"anything",x,"Milne's",itt)
+print (out)

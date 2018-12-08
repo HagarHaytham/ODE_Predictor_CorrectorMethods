@@ -6,14 +6,12 @@ Created on Fri Dec  7 20:25:13 2018
 """
 
 import point 
-import math 
+from math import * 
 
 def GetF(x,y,equation):# gets F some how from the equation 
-    # we will figure out that later XD
-    #pass
+    #should add all kind of functions that can be entered ,, cos ..... etc
+    f=eval(equation,{'__builtins__': None}, {'x': x,'y':y,'exp':exp, 'sqrt': sqrt})
     
-    #working on a dummy  equation just to check the output
-    f=4*math.exp(0.8*x) -0.5*y
     #print("printing f "+str(f))
     return f
 

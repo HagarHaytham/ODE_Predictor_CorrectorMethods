@@ -35,5 +35,6 @@ xs=[-3,-2,-1,0]
 ys=[-4.547302,-2.30616,-0.3929953,2]
 x=1
 itt=2
-out=PredictorCorrector(xs,ys,"anything",x,"Milne's",itt)
+eq="4*exp(0.8*x) -0.5*y"
+out=PredictorCorrector(xs,ys,eq,x,"Milne's",itt)
 print (out)

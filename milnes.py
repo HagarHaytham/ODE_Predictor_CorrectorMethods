@@ -32,14 +32,14 @@ def Milnes (xpoints,ypoints,equation,x,approxerror):
     myNum = len(points)-1
     h= points[1].x-points[0].x
     points[myNum].y= Predictor(myNum,points,h)
-    yPrev = Predictor(myNum,points,h)
+    yPrev =points[myNum].y
     myApproxError=1.0
     i=0
     while StoppingCriteria(myApproxError,approxerror,i,itterations)==True:
         points[myNum].y=Corrector(myNum,points,h)
         myApproxError = abs((points[myNum].y-yPrev)/points[myNum].y)
         #print("ycorrected",points[myNum].y,"yPrev",yPrev,"Error",myApproxError)
-        yPrev=Corrector(myNum,points,h)
+        yPrev=points[myNum].y
         points[myNum].f=GetF(points[myNum].x , points[myNum].y ,equation)
         i+=1
     return points[myNum].y,myApproxError

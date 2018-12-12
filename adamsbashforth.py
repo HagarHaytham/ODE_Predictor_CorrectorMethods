@@ -4,16 +4,9 @@ Created on Fri Dec  7 20:27:05 2018
 
 @author: hagar
 """
-from point import Point 
-from math import * 
+from pccommon import Point 
+from pccommon import GetF
 import numpy as np
-
-def GetF(x,y,equation):# gets F some how from the equation 
-    #should add all kind of functions that can be entered ,, cos ..... etc
-    f=eval(equation,{'__builtins__': None}, {'x': x,'y':y,'exp':exp, 'sqrt': sqrt})
-    
-    #print("printing f "+str(f))
-    return f
 
 #assume x after the last point in table
 def AdamsBashforth(xpoints,ypoints,equation,x,error):

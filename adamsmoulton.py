@@ -4,14 +4,13 @@ Created on Fri Dec  7 20:28:06 2018
 
 @author: hagar
 """
-from math import * 
-
+from pccommon import GetF
 def AdamsMoulton(xpoints,ypoints,equation,x,stopping_criteria):
     h=xpoints[1]-xpoints[0]
     f=[]
     n=len(xpoints)
     for i in range(n):
-        value=get_value(xpoints[i],ypoints[i],equation)
+        value=GetF(xpoints[i],ypoints[i],equation)
         f.append(value)
     i=n-1
     predictor=ypoints[i]+(h/12)*(23*f[i]-16*f[i-1]+5*f[i-2])
@@ -25,7 +24,3 @@ def AdamsMoulton(xpoints,ypoints,equation,x,stopping_criteria):
         iteration-=1
     return corrector , approximate_error
     
-
-def get_value(x,y,equation):
-        f=eval(equation,{'__builtins__': None}, {'cos':cos,'sin':sin,'x': x,'y':y,'exp':exp, 'sqrt': sqrt})
-        return f

@@ -5,13 +5,14 @@ Created on Fri Dec  7 20:28:21 2018
 @author: hagar
 
 """
-from math import *
+from pccommon import GetF
+
 def Adams(xpoints,ypoints,equation,x,stopping_criteria):
     h=xpoints[1]-xpoints[0]
     f=[]
     n=len(xpoints)
     for i in range(n):
-        value=get_value(xpoints[i],ypoints[i],equation)
+        value=GetF(xpoints[i],ypoints[i],equation)
         f.append(value)
     i=n-1
     predictor=ypoints[i]+(h/24)*(55*f[i]-59*f[i-1]+37*f[i-2]-9*f[i-3])
@@ -25,7 +26,3 @@ def Adams(xpoints,ypoints,equation,x,stopping_criteria):
         iteration-=1
     return corrector , approximate_error
     
-
-def get_value(x,y,equation):
-        f=eval(equation,{'__builtins__': None}, {'cos':cos,'sin':sin,'x': x,'y':y,'exp':exp, 'sqrt': sqrt})
-        return f

@@ -6,7 +6,7 @@ Created on Fri Dec  7 20:28:21 2018
 
 """
 from math import *
-def Adams(xpoints,ypoints,equation,x,iteration):
+def Adams(xpoints,ypoints,equation,x,stopping_criteria):
     h=xpoints[1]-xpoints[0]
     f=[]
     n=len(xpoints)
@@ -16,8 +16,9 @@ def Adams(xpoints,ypoints,equation,x,iteration):
     i=n-1
     predictor=ypoints[i]+(h/24)*(55*f[i]-59*f[i-1]+37*f[i-2]-9*f[i-3])
     corrector=predictor
-    approximate_error=0
-    while ( iteration > 0 ):
+    iteration=5
+    approximate_error=100
+    while ( iteration > 0 and approximate_error > stopping_criteria):
         prev_corrector=corrector
         corrector=ypoints[i]+(h/24)*(9*corrector+19*f[i]-5*f[i-1]+f[i-2])
         approximate_error=abs( (corrector- prev_corrector) / corrector )

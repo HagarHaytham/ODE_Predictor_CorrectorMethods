@@ -34,14 +34,14 @@ def PredictorCorrector(Xpoints,Ypoints,equation,x,technique,ApproxError=1):
     return output ,error
 
         
-
-
 xs=[-3,-2,-1,0]
 ys=[-4.547302,-2.30616,-0.3929953,2]
 x=1
-itt=5
 eq="4*exp(0.8*x) -0.5*y"
-eq2="x*y+x**2"
+#xs=[-0.1,0,0.1,0.2]
+#ys=[1.0047,1,1.0053,1.0229]
+#x=0.3
+#eq="x*y+x**2"
 approx=0.0005
 out ,error =PredictorCorrector(xs,ys,eq,x,"Milne's",approx)
 print (" Milne's      ",out,error)

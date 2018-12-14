@@ -37,7 +37,7 @@ def PredictorCorrector(Xpoints,Ypoints,equation,technique,xs,ApproxError=1):
     return ys ,errors,finalerror
 
 xs=[-0.1,0,0.1,0.2]
-ys=[1.0047,1,1.0053,1.0229]
+ys=[1.0047,1,1.0053,1.0229,1.05517025]
 x=[0.3,0.4]
 eq="x*y+x**2"
 #xs=[-0.1,0,0.1,0.2]

@@ -35,39 +35,40 @@ def AdamsBashforth(xpoints,ypoints,equation,xs,error):
     h = abs(points[1].x-points[0].x)
 
     for l in range (0,len(xs)):
-        if l:
-            f.pop(0)#remove first element
-
         #Fill the table with intial values 
         matrix[0] = f
         for j in range (1,len(xpoints)):
             for k in range (0,len(xpoints)-j):
                 matrix[j][k] = matrix[j-1][k+1]-matrix[j-1][k]
 
-        for i in range (iterations): 
-            print("matrix1: " , matrix)
+        for i in range (iterations):
             yPrevious = yCorrect
             if i == 0:
                 y0 = points[-1].y
-                yPredict = y0+h*(points[-1].f+0.5*matrix[1][len(xpoints)-2]+(5/12)*matrix[2][len(xpoints)-3]+ (3/8)*matrix[3][len(xpoints)-4]+ (251/720)*matrix[4][len(xpoints)-5])
+                yPredict = y0+h*(points[-1].f+0.5*matrix[1][len(xpoints)-2]+(float(5)/12)*matrix[2][len(xpoints)-3]+ (float(3)/8)*matrix[3][len(xpoints)-4]+ (float(251)/720)*matrix[4][len(xpoints)-5])
                 yPrevious = yPredict
-                print("y",yPredict)
                 #put f(x,y) in the table
                 matrix[0][len(xpoints)] = GetF(xs[l],yPredict,equation)
                 
             #calculate all new values in the table
             for j in range (0,len(xpoints)-1):
                     matrix[j+1][len(xpoints)-j-1] = matrix[j][len(xpoints)-j]-matrix[j][len(xpoints)-j-1]
-                    
-            print("matrix3: " , matrix)
-            yCorrect = y0+h*(matrix[0][len(xpoints)]-0.5*matrix[1][len(xpoints)-2]-(1/12)*matrix[2][len(xpoints)-3]-(1/24)*matrix[3][len(xpoints)-4]-(19/720)*matrix[4][len(xpoints)-5])
-            print("y",yCorrect)
+
+            yCorrect = y0+h*(matrix[0][len(xpoints)]-0.5*matrix[1][len(xpoints)-1]-(float(1)/12)*matrix[2][len(xpoints)-2]-(float(1)/24)*matrix[3][len(xpoints)-3]-(float(19)/720)*matrix[4][len(xpoints)-4])
             #check stopping criteria
             if (abs((yCorrect-yPrevious)/yCorrect*1.0))*100.0 <= error:
                 break
             matrix[0][len(xpoints)] = GetF(xs[l],yCorrect,equation)
-
-        f.append(GetF(xs[l],yCorrect,equation))
+        #put calculated values in table
+        xpoints.append(xs[l])
+        ypoints.append(yCorrect)
+        if len(xpoints) > 5:
+            xpoints.pop(0)
+            ypoints.pop(0)
+            f.pop(0)
+            f.append(GetF(xs[l],yCorrect,equation))
+        else: 
+            f[len(xpoints)-1]=(GetF(xs[l],yCorrect,equation))
         evalYs.append(yCorrect)
         approxErrors.append((abs((yCorrect-yPrevious)/yCorrect*1.0))*100.0)
     return evalYs,approxErrors,max(approxErrors)

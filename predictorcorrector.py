@@ -44,10 +44,10 @@ eq="4*exp(0.8*x) -0.5*y"
 #ys=[1.0047,1,1.0053,1.0229]
 #x=0.3
 #eq="x*y+x**2"
-approx=0.0005
+approx=0.00000005
 out ,errors,error =PredictorCorrector(xs,ys,eq,"Milne's",x,approx)
 print (" Milne's      ",out,errors,error)
-#out ,error =PredictorCorrector(xs,ys,eq,"Adams",x,approx)
-#print (" Adams        ",out,error)
-#out ,error =PredictorCorrector(xs,ys,eq,"AdamsMoulton",x,approx)
-#print (" AdamsMoulton ",out,error)
+out ,errors,error =PredictorCorrector(xs,ys,eq,"Adams",x,approx)
+print (" Adams        ",out,errors,error)
+out ,errors,error = PredictorCorrector(xs,ys,eq,"AdamsMoulton",x,approx)
+print (" AdamsMoulton ",out,errors,error)

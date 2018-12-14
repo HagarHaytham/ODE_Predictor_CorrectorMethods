@@ -20,6 +20,7 @@ Created on Fri Dec  7 19:46:24 2018
 from milnes import Milnes 
 from adams import Adams
 from adamsmoulton import AdamsMoulton
+from adamsbashforth import AdamsBashforth
 
 def PredictorCorrector(Xpoints,Ypoints,equation,technique,xs,ApproxError=1):
     ys=[]
@@ -28,26 +29,27 @@ def PredictorCorrector(Xpoints,Ypoints,equation,technique,xs,ApproxError=1):
     if technique=="Milne's":
         ys,errors,finalerror=Milnes(Xpoints,Ypoints,equation,xs,ApproxError) 
     elif technique=="AdamsBashforth":
-        ys=[]
+        ys,errors,finalerror=AdamsBashforth(Xpoints,Ypoints,equation,xs,ApproxError)
     elif technique=="AdamsMoulton":
         ys , errors,finalerror =AdamsMoulton(Xpoints,Ypoints,equation,xs,ApproxError)
     elif technique=="Adams":
         ys, errors, finalerror = Adams(Xpoints,Ypoints,equation,xs,ApproxError)
     return ys ,errors,finalerror
 
-        
-xs=[-3,-2,-1,0]
-ys=[-4.547302,-2.30616,-0.3929953,2]
-x=[1,2,3,4]
-eq="4*exp(0.8*x) -0.5*y"
+xs=[-0.1,0,0.1,0.2]
+ys=[1.0047,1,1.0053,1.0229]
+x=[0.3,0.4]
+eq="x*y+x**2"
 #xs=[-0.1,0,0.1,0.2]
 #ys=[1.0047,1,1.0053,1.0229]
 #x=0.3
 #eq="x*y+x**2"
-approx=0.00000005
+approx=0.00000000005
 out ,errors,error =PredictorCorrector(xs,ys,eq,"Milne's",x,approx)
 print (" Milne's      ",out,errors,error)
 out ,errors,error =PredictorCorrector(xs,ys,eq,"Adams",x,approx)
 print (" Adams        ",out,errors,error)
 out ,errors,error = PredictorCorrector(xs,ys,eq,"AdamsMoulton",x,approx)
-print (" AdamsMoulton ",out,errors,error)
+print (" AdamsMoulton       ",out,errors,error)
+out ,errors,error = PredictorCorrector(xs,ys,eq,"AdamsBashforth",x,approx)
+print (" AdamsBashforth       ",out,errors,error)

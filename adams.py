@@ -39,6 +39,7 @@ def Adams(xpoints,ypoints,equation,xvalues,stopping_criteria):
         y.append(corrector)
         answers.append(corrector)
         errors.append(approximate_error)
-    return answers , errors
+    return answers , errors , max(errors)  
+
     
 

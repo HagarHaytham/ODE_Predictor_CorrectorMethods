@@ -30,9 +30,9 @@ def PredictorCorrector(Xpoints,Ypoints,equation,technique,xs,ApproxError=1):
     elif technique=="AdamsBashforth":
         ys=[]
     elif technique=="AdamsMoulton":
-        ys , errors =AdamsMoulton(Xpoints,Ypoints,equation,xs,ApproxError)
+        ys , errors,finalerror =AdamsMoulton(Xpoints,Ypoints,equation,xs,ApproxError)
     elif technique=="Adams":
-        ys, errors = Adams(Xpoints,Ypoints,equation,xs,ApproxError)
+        ys, errors, finalerror = Adams(Xpoints,Ypoints,equation,xs,ApproxError)
     return ys ,errors,finalerror
 
         

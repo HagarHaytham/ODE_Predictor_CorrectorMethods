@@ -101,7 +101,6 @@ def AdamsBashforth(xpointsold,ypointsold,equation,xs,error):
         f.append(tempF)
     for i in range (6-len(f)):
         f.append(0)
-
     #step
     h = abs(points[1].x-points[0].x)
 
@@ -137,9 +136,9 @@ def AdamsBashforth(xpointsold,ypointsold,equation,xs,error):
             xpoints.pop(0)
             ypoints.pop(0)
             f.pop(0)
-            f.append(GetF(xs[l],yCorrect,equation))
-        else: 
-            f[len(xpoints)-1]=(GetF(xs[l],yCorrect,equation))
+            f.append(0)
+
+        f[len(xpoints)-1]=(GetF(xs[l],yCorrect,equation))
         points.append(Point(xs[l],yCorrect,tempF))
         evalYs.append(yCorrect)
         approxErrors.append((abs((yCorrect-yPrevious)/yCorrect*1.0))*100.0)
@@ -245,7 +244,7 @@ def PredictorCorrector(Xpoints,Ypoints,equation,technique,xs,ApproxError):
 #eq="4*exp(0.8*x) -0.5*y"
 #xs=[-0.1,0,0.1,0.2]
 #ys=[1.0047,1,1.0053,1.0229]
-x=[0.3,0.4]
+x=[0.3,0.4,0.5,0.6]
 eq="x*y+x**2"
 xs=[-0.1,0,0.1,0.2]
 ys=[1.0047,1,1.0053,1.0229]

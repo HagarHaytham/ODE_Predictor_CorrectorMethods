@@ -31,7 +31,7 @@ def Adams(xpoints,ypoints,equation,xvalues,stopping_criteria):
         while ( iteration > 0 and approximate_error > stopping_criteria):
             prev_corrector=corrector
             corrector=y[i]+(h/24)*(9*corrector+19*f[i]-5*f[i-1]+f[i-2])
-            approximate_error=abs( (corrector- prev_corrector) / corrector )
+            approximate_error=abs( (corrector- prev_corrector) / corrector )*100
             iteration-=1
         value=GetF(xval,corrector,equation) 
         f.append(value)

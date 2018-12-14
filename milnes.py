@@ -14,8 +14,7 @@ def MilnesPredictor(i,points,h):
 def MilnesCorrector(i,points,h):
     yc= points[i-2].y + (h/3)*(points[i-2].f +4*points[i-1].f+ points[i].f )
     return yc
-    
-       
+          
 def Milnes (xpoints,ypoints,equation,evalxs,approxerror):
     itterations=5
     points=[]
@@ -31,9 +30,9 @@ def Milnes (xpoints,ypoints,equation,evalxs,approxerror):
         points[myNum].y= MilnesPredictor(myNum,points,h)
         points[myNum].f=GetF(points[myNum].x , points[myNum].y ,equation)
         yPrev =points[myNum].y
-        myApproxError=1
+        myApproxError=100
         i=0
-        while StoppingCriteria(myApproxError,approxerror,i,itterations):
+        while i<itterations and myApproxError > approxerror:
             points[myNum].y=MilnesCorrector(myNum,points,h)
             myApproxError = abs((points[myNum].y-yPrev)/points[myNum].y)
 #            print(k," ycorrected",points[myNum].y,"yPrev",yPrev,"Error",myApproxError)

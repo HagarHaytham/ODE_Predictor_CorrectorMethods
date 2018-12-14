@@ -21,8 +21,3 @@ def GetF(x,y,equation):
      'sinh':sinh,'asinh':asinh,'tanh':tanh,'atanh':atanh,'pi':pi,'e':e})
     return f
         
-def StoppingCriteria (myApproxError,approxerror,i,itterations):
-    if (approxerror==1):
-        return i<itterations
-    else:
-        return myApproxError>approxerror

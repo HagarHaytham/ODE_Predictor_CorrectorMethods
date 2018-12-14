@@ -14,7 +14,6 @@ def Adams(xpoints,ypoints,equation,xvalues,stopping_criteria):
     answers=[]
     errors=[]
     k=len(xpoints)
-    eq="4*exp(0.8*x) -0.5*y"
     for i in range(k):
         value=GetF(xpoints[i],ypoints[i],equation)
         f.append(value)

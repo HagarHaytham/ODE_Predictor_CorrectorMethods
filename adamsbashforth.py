@@ -71,7 +71,3 @@ def AdamsBashforth(xpoints,ypoints,equation,xs,error):
         evalYs.append(yCorrect)
         approxErrors.append((abs((yCorrect-yPrevious)/yCorrect*1.0))*100.0)
     return evalYs,approxErrors,max(approxErrors)
-
-            
-
-                

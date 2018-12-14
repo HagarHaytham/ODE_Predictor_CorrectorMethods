@@ -111,16 +111,13 @@ def AdamsBashforth(xpointsold,ypointsold,equation,xs,error):
         for j in range (1,len(xpoints)):
             for k in range (0,len(xpoints)-j):
                 matrix[j][k] = matrix[j-1][k+1]-matrix[j-1][k]
-        #print("matrix", matrix)
-        #print("x", xpoints)
+
         for i in range (iterations):
             yPrevious = yCorrect
-            print("sarraraaaa")
             if i == 0:
                 y0 = points[-1].y
                 yPredict = y0+h*(points[-1].f+0.5*matrix[1][len(xpoints)-2]+(float(5)/12)*matrix[2][len(xpoints)-3]+ (float(3)/8)*matrix[3][len(xpoints)-4]+ (float(251)/720)*matrix[4][len(xpoints)-5])
                 yPrevious = yPredict
-                print("y0", points[-1].y)
                 #put f(x,y) in the table
                 matrix[0][len(xpoints)] = GetF(xs[l],yPredict,equation)
                 
@@ -136,14 +133,13 @@ def AdamsBashforth(xpointsold,ypointsold,equation,xs,error):
         #put calculated values in table
         xpoints.append(xs[l])
         ypoints.append(yCorrect)
-        tempF = GetF(xs[l],yCorrect,equation)
         if len(xpoints) > 5:
             xpoints.pop(0)
             ypoints.pop(0)
             f.pop(0)
-            f.append(tempF)
+            f.append(GetF(xs[l],yCorrect,equation))
         else: 
-            f[len(xpoints)-1]=(tempF)
+            f[len(xpoints)-1]=(GetF(xs[l],yCorrect,equation))
         points.append(Point(xs[l],yCorrect,tempF))
         evalYs.append(yCorrect)
         approxErrors.append((abs((yCorrect-yPrevious)/yCorrect*1.0))*100.0)

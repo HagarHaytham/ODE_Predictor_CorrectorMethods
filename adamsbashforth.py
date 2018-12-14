@@ -21,7 +21,7 @@ def AdamsBashforth(xpoints,ypoints,equation,xs,error):
     evalYs=[] 
     approxErrors=[]
     #Table: 1st row: f, 2nd row: delta f ...
-    matrix= np.zeros((5,6)) #check ?? 5/6
+    matrix= np.zeros((5,6))
 
     #calculate f for the given points
     for i in range (len(xpoints)):

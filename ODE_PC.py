@@ -79,13 +79,15 @@ def Milnes (xpoints,ypoints,equation,evalxs,approxerror):
 
 
 #assume x after the last point in table ##Error
-def AdamsBashforth(xpoints,ypoints,equation,xs,error):
+def AdamsBashforth(xpointsold,ypointsold,equation,xs,error):
     points=[] #contains all given points
     f=[] #all calculated f(x,y)
     y0 = 0
     yCorrect = 0
     yPredict = 0
     iterations = 5
+    xpoints = xpointsold.copy()
+    ypoints = ypointsold.copy()
     #result
     evalYs=[] 
     approxErrors=[]
@@ -109,13 +111,16 @@ def AdamsBashforth(xpoints,ypoints,equation,xs,error):
         for j in range (1,len(xpoints)):
             for k in range (0,len(xpoints)-j):
                 matrix[j][k] = matrix[j-1][k+1]-matrix[j-1][k]
-
+        #print("matrix", matrix)
+        #print("x", xpoints)
         for i in range (iterations):
             yPrevious = yCorrect
+            print("sarraraaaa")
             if i == 0:
                 y0 = points[-1].y
                 yPredict = y0+h*(points[-1].f+0.5*matrix[1][len(xpoints)-2]+(float(5)/12)*matrix[2][len(xpoints)-3]+ (float(3)/8)*matrix[3][len(xpoints)-4]+ (float(251)/720)*matrix[4][len(xpoints)-5])
                 yPrevious = yPredict
+                print("y0", points[-1].y)
                 #put f(x,y) in the table
                 matrix[0][len(xpoints)] = GetF(xs[l],yPredict,equation)
                 
@@ -131,13 +136,15 @@ def AdamsBashforth(xpoints,ypoints,equation,xs,error):
         #put calculated values in table
         xpoints.append(xs[l])
         ypoints.append(yCorrect)
+        tempF = GetF(xs[l],yCorrect,equation)
         if len(xpoints) > 5:
             xpoints.pop(0)
             ypoints.pop(0)
             f.pop(0)
-            f.append(GetF(xs[l],yCorrect,equation))
+            f.append(tempF)
         else: 
-            f[len(xpoints)-1]=(GetF(xs[l],yCorrect,equation))
+            f[len(xpoints)-1]=(tempF)
+        points.append(Point(xs[l],yCorrect,tempF))
         evalYs.append(yCorrect)
         approxErrors.append((abs((yCorrect-yPrevious)/yCorrect*1.0))*100.0)
     return evalYs,approxErrors,max(approxErrors)
@@ -213,6 +220,8 @@ def Adams(xpoints,ypoints,equation,xvalues,stopping_criteria):
 def PredictorCorrector(Xpoints,Ypoints,equation,technique,xs,ApproxError):
     ys=[]
     errors=[]
+    x = []
+    y = []
     finalerror=0
     if technique=="Milne's":
         ys,errors,finalerror=Milnes(Xpoints,Ypoints,equation,xs,ApproxError) 
@@ -222,8 +231,10 @@ def PredictorCorrector(Xpoints,Ypoints,equation,technique,xs,ApproxError):
         ys , errors,finalerror =AdamsMoulton(Xpoints,Ypoints,equation,xs,ApproxError)
     elif technique=="Adams":
         ys, errors, finalerror = Adams(Xpoints,Ypoints,equation,xs,ApproxError)
+
     finalX=Xpoints+xs
     finalY=Ypoints+ys
+    print("final",finalX , finalY )
     plt.plot(finalX,finalY)
     plt.xlabel('X Axis')
     plt.ylabel('Y Axis')
@@ -238,18 +249,18 @@ def PredictorCorrector(Xpoints,Ypoints,equation,technique,xs,ApproxError):
 #eq="4*exp(0.8*x) -0.5*y"
 #xs=[-0.1,0,0.1,0.2]
 #ys=[1.0047,1,1.0053,1.0229]
-#x=[0.3,0.4]
-#eq="x*y+x**2"
-#xs=[-0.1,0,0.1,0.2]
-#ys=[1.0047,1,1.0053,1.0229]
+x=[0.3,0.4]
+eq="x*y+x**2"
+xs=[-0.1,0,0.1,0.2]
+ys=[1.0047,1,1.0053,1.0229]
 #x=0.3
 #eq="x*y+x**2"
-#approx=0.00000000005
-#out ,errors,error =PredictorCorrector(xs,ys,eq,"Milne's",x,approx)
-#print (" Milne's      ",out,errors,error)
-#out ,errors,error =PredictorCorrector(xs,ys,eq,"Adams",x,approx)
-#print (" Adams        ",out,errors,error)
-#out ,errors,error = PredictorCorrector(xs,ys,eq,"AdamsMoulton",x,approx)
-#print (" AdamsMoulton       ",out,errors,error)
-#out ,errors,error = PredictorCorrector(xs,ys,eq,"AdamsBashforth",x,approx)
-#print (" AdamsBashforth       ",out,errors,error)
+approx=0.00000000005
+out ,errors,error =PredictorCorrector(xs,ys,eq,"Milne's",x,approx)
+print (" Milne's      ",out,errors,error)
+out ,errors,error =PredictorCorrector(xs,ys,eq,"Adams",x,approx)
+print (" Adams        ",out,errors,error)
+out ,errors,error = PredictorCorrector(xs,ys,eq,"AdamsMoulton",x,approx)
+print (" AdamsMoulton       ",out,errors,error)
+out ,errors,error = PredictorCorrector(xs,ys,eq,"AdamsBashforth",x,approx)
+print (" AdamsBashforth       ",out,errors,error)

@@ -18,3 +18,8 @@ def GetF(x,y,equation):
     f=eval(equation,{'__builtins__': None},{'cos':cos,'sin':sin,'x': x,'y':y,'exp':exp, 'sqrt': sqrt})
     return f
         
+def StoppingCriteria (myApproxError,approxerror,i,itterations):
+    if (approxerror==1):
+        return i<itterations
+    else:
+        return myApproxError>approxerror
